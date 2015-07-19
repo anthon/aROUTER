@@ -115,9 +115,9 @@
 	</div>
 
 	<div id="menu1" class="menu">
-		<a href="/about" data-href="/about">About</a>
-		<a href="/works" data-href="/works">Works</a>
-		<a href="/contact" data-href="/contact">Contact</a>
+		<a href="/about/me" data-href="/about/me">About</a>
+		<a href="/my/works" data-href="/my/works">Works</a>
+		<a href="/contact/me" data-href="/contact/me">Contact</a>
 	</div>
 
 	<script type="text/javascript">
@@ -126,11 +126,11 @@
 			root: window.location.pathname
 		});
 
-		R.add(/about/,function(){
+		R.add(/about\/me/,function(){
 				$('#about').show().siblings().hide()
-			}).add(/works/,function(){
+			}).add(/my\/works/,function(){
 				$('#works').show().siblings().hide()
-			}).add(/contact/,function(){
+			}).add(/contact\/me/,function(){
 				$('#contact').show().siblings().hide()
 			});
 

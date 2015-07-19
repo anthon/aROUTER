@@ -10,6 +10,9 @@
       root: '/'
     };
     init = function(options) {
+      if (history && history.pushState) {
+        settings.modern = true;
+      }
       if (options && options.root) {
         settings.root = '/' + clearSlashes(options.root) + '/';
       }
