@@ -29,11 +29,9 @@ R = (options)->
 		if typeof regex is 'function'
 			callback = regex
 			regex = ''
-		route =
-			regex: regex
-			callback: callback
-		console.log 'Adding route:',route
-		settings.routes[regex] = callback
+		pattern = clearSlashes(regex)
+		console.log 'Adding route:',pattern
+		settings.routes[pattern] = callback
 		@
 
 	remove = (param)->
@@ -64,7 +62,8 @@ R = (options)->
 		console.log 'gotPop'
 		fragment = getFragment()
 		console.log 'Got fragment:',fragment
-		for regex, callback of settings.routes
+		for pattern, callback of settings.routes
+			regex = new RegExp pattern
 			match = fragment.match regex
 			if match
 				console.log match

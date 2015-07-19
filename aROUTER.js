@@ -10,9 +10,6 @@
       root: '/'
     };
     init = function(options) {
-      if (history && history.pushState) {
-        settings.modern = true;
-      }
       if (options && options.root) {
         settings.root = '/' + clearSlashes(options.root) + '/';
       }
@@ -39,17 +36,14 @@
       return path.toString().replace(/\/$/, '').replace(/^\//, '');
     };
     add = function(regex, callback) {
-      var route;
+      var pattern;
       if (typeof regex === 'function') {
         callback = regex;
         regex = '';
       }
-      route = {
-        regex: regex,
-        callback: callback
-      };
-      console.log('Adding route:', route);
-      settings.routes[regex] = callback;
+      pattern = clearSlashes(regex);
+      console.log('Adding route:', pattern);
+      settings.routes[pattern] = callback;
       return this;
     };
     remove = function(param) {
@@ -84,13 +78,14 @@
       return this;
     };
     check = function(e) {
-      var callback, fragment, match, ref, regex;
+      var callback, fragment, match, pattern, ref, regex;
       console.log('gotPop');
       fragment = getFragment();
       console.log('Got fragment:', fragment);
       ref = settings.routes;
-      for (regex in ref) {
-        callback = ref[regex];
+      for (pattern in ref) {
+        callback = ref[pattern];
+        regex = new RegExp(pattern);
         match = fragment.match(regex);
         if (match) {
           console.log(match);
