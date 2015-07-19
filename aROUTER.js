@@ -74,7 +74,7 @@
       path = pth ? pth : '';
       if (settings.modern) {
         console.log('Navigating using history:', path);
-        history.pushState(null, null, settings.root + clearSlashes(path));
+        history.pushState(path, null, settings.root + clearSlashes(path));
       } else {
         console.log('Navigating using hash:', path);
         window.location.hash = path;
