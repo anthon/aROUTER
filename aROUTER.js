@@ -10,9 +10,6 @@
       root: '/'
     };
     init = function(options) {
-      if (history && history.pushState) {
-        settings.modern = true;
-      }
       if (options && options.root) {
         settings.root = '/' + clearSlashes(options.root) + '/';
       }
@@ -81,7 +78,7 @@
       }
       return this;
     };
-    onPop = function(f) {
+    onPop = function() {
       var fragment, i, index, len, match, ref, route;
       console.log('gotPop');
       fragment = getFragment();
@@ -90,7 +87,7 @@
         route = ref[index];
         match = fragment.match(route.regex);
         if (match) {
-          console.log('match');
+          console.log(match);
           match.shift();
           route.callback.apply({}, match);
         }
@@ -99,7 +96,9 @@
     };
     start = function() {
       console.log('Setting popstate event handler');
-      return window.addEventListener('popstate', onPop);
+      return window.addEventListener('popstate', function(e) {
+        return onPop();
+      });
     };
     init(options);
     return {

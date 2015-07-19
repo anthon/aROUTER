@@ -5,7 +5,7 @@ R = (options)->
 		root: '/'
 
 	init = (options)->
-		if history and history.pushState then settings.modern = true
+		# if history and history.pushState then settings.modern = true
 		if options and options.root then settings.root = '/'+clearSlashes(options.root)+'/'
 		@
 
@@ -58,20 +58,21 @@ R = (options)->
 			window.location.hash = path
 		@
 
-	onPop = (f)->
+	onPop = ->
 		console.log 'gotPop'
 		fragment = getFragment()
 		for route, index in settings.routes
 			match = fragment.match route.regex
 			if match
-				console.log 'match'
+				console.log match
 				match.shift()
 				route.callback.apply({},match)
 		@
 
 	start = ->
 		console.log 'Setting popstate event handler'
-		window.addEventListener 'popstate', onPop
+		window.addEventListener 'popstate', (e)->
+			onPop()
 
 	init(options)
 
