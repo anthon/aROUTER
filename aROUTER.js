@@ -93,10 +93,12 @@
         if (match) {
           console.log(match);
           match.shift();
-          args = {
-            path: fragment,
-            match: match
-          };
+          args = [
+            {
+              path: fragment,
+              match: match
+            }
+          ];
           callback.apply({}, args);
         }
       }
