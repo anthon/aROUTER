@@ -10,6 +10,9 @@
       root: '/'
     };
     init = function(options) {
+      if (history && history.pushState) {
+        settings.modern = true;
+      }
       if (options && options.root) {
         settings.root = '/' + clearSlashes(options.root) + '/';
       }
@@ -78,7 +81,7 @@
       return this;
     };
     check = function(e) {
-      var callback, fragment, match, pattern, ref, regex;
+      var args, callback, fragment, match, pattern, ref, regex;
       console.log('gotPop');
       fragment = getFragment();
       console.log('Got fragment:', fragment);
@@ -90,7 +93,11 @@
         if (match) {
           console.log(match);
           match.shift();
-          callback.apply({}, match);
+          args = {
+            path: fragment,
+            match: match
+          };
+          callback.apply({}, args);
         }
       }
       return this;

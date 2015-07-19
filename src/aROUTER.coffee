@@ -68,7 +68,10 @@ R = (options)->
 			if match
 				console.log match
 				match.shift()
-				callback.apply({},match)
+				args =
+					path: fragment
+					match: match
+				callback.apply({},args)
 		@
 
 	start = ->
