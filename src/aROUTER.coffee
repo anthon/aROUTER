@@ -58,8 +58,9 @@ R = (options)->
 			window.location.hash = path
 		@
 
-	onPop = ->
+	onPop = (e)->
 		console.log 'gotPop'
+		console.log e.state
 		fragment = getFragment()
 		console.log 'Got fragment:',fragment
 		for route, index in settings.routes
@@ -72,9 +73,7 @@ R = (options)->
 
 	start = ->
 		console.log 'Setting popstate event handler'
-		window.addEventListener 'popstate', (e)->
-			console.log e.state
-			onPop()
+		window.addEventListener 'popstate', onPop
 
 	init(options)
 

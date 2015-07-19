@@ -81,9 +81,10 @@
       }
       return this;
     };
-    onPop = function() {
+    onPop = function(e) {
       var fragment, i, index, len, match, ref, route;
       console.log('gotPop');
+      console.log(e.state);
       fragment = getFragment();
       console.log('Got fragment:', fragment);
       ref = settings.routes;
@@ -100,10 +101,7 @@
     };
     start = function() {
       console.log('Setting popstate event handler');
-      return window.addEventListener('popstate', function(e) {
-        console.log(e.state);
-        return onPop();
-      });
+      return window.addEventListener('popstate', onPop);
     };
     init(options);
     return {
