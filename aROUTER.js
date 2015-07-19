@@ -92,7 +92,6 @@
         match = fragment.match(regex);
         if (match) {
           console.log(match);
-          match.shift();
           callback.apply({}, match);
         }
       }

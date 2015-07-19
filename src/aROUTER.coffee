@@ -67,7 +67,7 @@ R = (options)->
 			match = fragment.match regex
 			if match
 				console.log match
-				match.shift()
+				# match.shift()
 				callback.apply({},match)
 		@
 
