@@ -51,8 +51,10 @@ R = (options)->
 	navigate = (pth)->
 		path = if pth then pth else ''
 		if settings.modern
+			console.log 'Navigating using history:',path
 			history.pushState null, null, settings.root + clearSlashes(path)
 		else
+			console.log 'Navigating using hash:',path
 			window.location.hash = path
 		@
 
@@ -68,6 +70,7 @@ R = (options)->
 		@
 
 	start = ->
+		console.log 'Setting popstate event handler'
 		window.addEventListener 'popstate', onPop
 
 	init(options)

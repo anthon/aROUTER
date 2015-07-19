@@ -73,8 +73,10 @@
       var path;
       path = pth ? pth : '';
       if (settings.modern) {
+        console.log('Navigating using history:', path);
         history.pushState(null, null, settings.root + clearSlashes(path));
       } else {
+        console.log('Navigating using hash:', path);
         window.location.hash = path;
       }
       return this;
@@ -96,6 +98,7 @@
       return this;
     };
     start = function() {
+      console.log('Setting popstate event handler');
       return window.addEventListener('popstate', onPop);
     };
     init(options);
