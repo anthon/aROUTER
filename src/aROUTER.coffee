@@ -5,7 +5,7 @@ R = (options)->
 		root: '/'
 
 	init = (options)->
-		# if history and history.pushState then settings.modern = true
+		if history and history.pushState then settings.modern = true
 		if options and options.root then settings.root = '/'+clearSlashes(options.root)+'/'
 		@
 
