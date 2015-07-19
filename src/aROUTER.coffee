@@ -53,14 +53,14 @@ R = (options)->
 		if settings.modern
 			console.log 'Navigating using history:',path
 			history.pushState path, null, settings.root + clearSlashes(path)
+			check()
 		else
 			console.log 'Navigating using hash:',path
 			window.location.hash = path
 		@
 
-	onPop = (e)->
+	check = (e)->
 		console.log 'gotPop'
-		console.log e.state
 		fragment = getFragment()
 		console.log 'Got fragment:',fragment
 		for route, index in settings.routes
@@ -73,7 +73,7 @@ R = (options)->
 
 	start = ->
 		console.log 'Setting popstate event handler'
-		window.addEventListener 'popstate', onPop
+		window.addEventListener 'popstate', check
 
 	init(options)
 

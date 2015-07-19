@@ -3,7 +3,7 @@
   var R;
 
   R = function(options) {
-    var add, clearSlashes, flush, getFragment, getRoutes, init, navigate, onPop, remove, settings, start;
+    var add, check, clearSlashes, flush, getFragment, getRoutes, init, navigate, remove, settings, start;
     settings = {
       routes: [],
       modern: false,
@@ -75,16 +75,16 @@
       if (settings.modern) {
         console.log('Navigating using history:', path);
         history.pushState(path, null, settings.root + clearSlashes(path));
+        check();
       } else {
         console.log('Navigating using hash:', path);
         window.location.hash = path;
       }
       return this;
     };
-    onPop = function(e) {
+    check = function(e) {
       var fragment, i, index, len, match, ref, route;
       console.log('gotPop');
-      console.log(e.state);
       fragment = getFragment();
       console.log('Got fragment:', fragment);
       ref = settings.routes;
@@ -101,7 +101,7 @@
     };
     start = function() {
       console.log('Setting popstate event handler');
-      return window.addEventListener('popstate', onPop);
+      return window.addEventListener('popstate', check);
     };
     init(options);
     return {
