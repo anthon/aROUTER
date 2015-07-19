@@ -75,6 +75,7 @@
     };
     onPop = function(f) {
       var fragment, i, index, len, match, ref, route;
+      console.log('gotPop');
       fragment = getFragment();
       ref = settings.routes;
       for (index = i = 0, len = ref.length; i < len; index = ++i) {

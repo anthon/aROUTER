@@ -52,6 +52,7 @@ R = (options)->
 		@
 
 	onPop = (f)->
+		console.log 'gotPop'
 		fragment = getFragment()
 		for route, index in settings.routes
 			match = fragment.match route.regex
