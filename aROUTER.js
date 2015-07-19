@@ -3,7 +3,7 @@
   var R;
 
   R = function(options) {
-    var add, clearSlashes, flush, getFragment, init, navigate, onPop, remove, settings, start;
+    var add, clearSlashes, flush, getFragment, getRoutes, init, navigate, onPop, remove, settings, start;
     settings = {
       routes: [],
       modern: false,
@@ -17,6 +17,9 @@
         settings.root = '/' + clearSlashes(options.root) + '/';
       }
       return this;
+    };
+    getRoutes = function() {
+      return this.settings.routes;
     };
     getFragment = function() {
       var fragment, match;
@@ -98,7 +101,8 @@
       remove: remove,
       flush: flush,
       navigate: navigate,
-      start: start
+      start: start,
+      routes: getRoutes
     };
   };
 

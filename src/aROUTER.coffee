@@ -9,6 +9,9 @@ R = (options)->
 		if options and options.root then settings.root = '/'+clearSlashes(options.root)+'/'
 		@
 
+	getRoutes = ->
+		@.settings.routes
+
 	getFragment = ->
 		if settings.modern
 			fragment = clearSlashes(decodeURI(location.pathname + location.search))
@@ -73,6 +76,7 @@ R = (options)->
 		flush: flush
 		navigate: navigate
 		start: start
+		routes: getRoutes
 	}
 
 window.Router = (options)->
