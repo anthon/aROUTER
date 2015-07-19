@@ -19,7 +19,7 @@
       return this;
     };
     getRoutes = function() {
-      return this.settings.routes;
+      return settings.routes;
     };
     getFragment = function() {
       var fragment, match;

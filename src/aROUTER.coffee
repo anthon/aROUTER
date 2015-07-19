@@ -10,7 +10,7 @@ R = (options)->
 		@
 
 	getRoutes = ->
-		@.settings.routes
+		settings.routes
 
 	getFragment = ->
 		if settings.modern
