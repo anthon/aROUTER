@@ -69,7 +69,7 @@
     };
     navigate = function(pth) {
       var path;
-      path = pth ? pth : '';
+      path = pth ? pth.replace(settings.root, '') : '';
       if (settings.modern) {
         console.log('Navigating using history:', path);
         history.pushState(path, null, settings.root + clearSlashes(path));

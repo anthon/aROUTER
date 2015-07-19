@@ -48,7 +48,7 @@ R = (options)->
 		@
 
 	navigate = (pth)->
-		path = if pth then pth else ''
+		path = if pth then pth.replace(settings.root,'') else ''
 		if settings.modern
 			console.log 'Navigating using history:',path
 			history.pushState path, null, settings.root + clearSlashes(path)
