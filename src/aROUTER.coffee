@@ -32,7 +32,7 @@ R = (options)->
 		route =
 			regex: regex
 			callback: callback
-		console.log 'Adding route:',route
+		# console.log 'Adding route:',route
 		settings.routes.push route
 		@
 
@@ -51,26 +51,26 @@ R = (options)->
 	navigate = (pth)->
 		path = if pth then pth else ''
 		if settings.modern
-			console.log 'Navigating using history:',path
+			# console.log 'Navigating using history:',path
 			history.pushState null, null, settings.root + clearSlashes(path)
 		else
-			console.log 'Navigating using hash:',path
+			# console.log 'Navigating using hash:',path
 			window.location.hash = path
 		@
 
 	onPop = ->
-		console.log 'gotPop'
+		# console.log 'gotPop'
 		fragment = getFragment()
 		for route, index in settings.routes
 			match = fragment.match route.regex
 			if match
-				console.log match
+				# console.log match
 				match.shift()
 				route.callback.apply({},match)
 		@
 
 	start = ->
-		console.log 'Setting popstate event handler'
+		# console.log 'Setting popstate event handler'
 		window.addEventListener 'popstate', (e)->
 			onPop()
 
