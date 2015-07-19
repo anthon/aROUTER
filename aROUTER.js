@@ -81,7 +81,7 @@
       return this;
     };
     check = function(e) {
-      var args, callback, fragment, match, pattern, ref, regex;
+      var callback, fragment, match, pattern, ref, regex;
       console.log('gotPop');
       fragment = getFragment();
       console.log('Got fragment:', fragment);
@@ -93,13 +93,7 @@
         if (match) {
           console.log(match);
           match.shift();
-          args = [
-            {
-              path: fragment,
-              match: match
-            }
-          ];
-          callback.apply({}, args);
+          callback.apply({}, match);
         }
       }
       return this;
