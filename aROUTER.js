@@ -101,6 +101,7 @@
     start = function() {
       console.log('Setting popstate event handler');
       return window.addEventListener('popstate', function(e) {
+        console.log(e.state);
         return onPop();
       });
     };

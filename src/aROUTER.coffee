@@ -73,6 +73,7 @@ R = (options)->
 	start = ->
 		console.log 'Setting popstate event handler'
 		window.addEventListener 'popstate', (e)->
+			console.log e.state
 			onPop()
 
 	init(options)
