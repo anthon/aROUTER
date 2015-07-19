@@ -39,14 +39,17 @@
       return path.toString().replace(/\/$/, '').replace(/^\//, '');
     };
     add = function(regex, callback) {
+      var route;
       if (typeof regex === 'function') {
         callback = regex;
         regex = '';
       }
-      settings.routes.push({
+      route = {
         regex: regex,
         callback: callback
-      });
+      };
+      console.log('Adding route:', route);
+      settings.routes.push(route);
       return this;
     };
     remove = function(param) {

@@ -29,9 +29,11 @@ R = (options)->
 		if typeof regex is 'function'
 			callback = regex
 			regex = ''
-		settings.routes.push
+		route =
 			regex: regex
 			callback: callback
+		console.log 'Adding route:',route
+		settings.routes.push route
 		@
 
 	remove = (param)->
