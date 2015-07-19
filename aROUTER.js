@@ -48,6 +48,7 @@
         regex: regex,
         callback: callback
       };
+      console.log('Adding route:', route);
       settings.routes.push(route);
       return this;
     };
@@ -72,20 +73,25 @@
       var path;
       path = pth ? pth : '';
       if (settings.modern) {
+        console.log('Navigating using history:', path);
         history.pushState(null, null, settings.root + clearSlashes(path));
       } else {
+        console.log('Navigating using hash:', path);
         window.location.hash = path;
       }
       return this;
     };
     onPop = function() {
       var fragment, i, index, len, match, ref, route;
+      console.log('gotPop');
       fragment = getFragment();
+      console.log('Got fragment:', fragment);
       ref = settings.routes;
       for (index = i = 0, len = ref.length; i < len; index = ++i) {
         route = ref[index];
         match = fragment.match(route.regex);
         if (match) {
+          console.log(match);
           match.shift();
           route.callback.apply({}, match);
         }
@@ -93,6 +99,7 @@
       return this;
     };
     start = function() {
+      console.log('Setting popstate event handler');
       return window.addEventListener('popstate', function(e) {
         return onPop();
       });
