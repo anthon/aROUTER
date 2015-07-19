@@ -5,7 +5,7 @@
   R = function(options) {
     var add, check, clearSlashes, flush, getFragment, getRoutes, init, navigate, remove, settings, start;
     settings = {
-      routes: [],
+      routes: {},
       modern: false,
       root: '/'
     };
@@ -49,16 +49,17 @@
         callback: callback
       };
       console.log('Adding route:', route);
-      settings.routes.push(route);
+      settings.routes[regex] = callback;
       return this;
     };
     remove = function(param) {
-      var i, index, len, ref, route;
+      var callback, ref, regex;
       ref = settings.routes;
-      for (index = i = 0, len = ref.length; i < len; index = ++i) {
-        route = ref[index];
-        if (route.callback === param || route.regex.toString() === param.toString()) {
-          settings.routes.splice(index, 1);
+      for (regex in ref) {
+        callback = ref[regex];
+        if (callback === param || regex.toString() === param.toString()) {
+          settings.routes[regex] = null;
+          delete settings.routes[regex];
         }
       }
       return this;
@@ -83,18 +84,18 @@
       return this;
     };
     check = function(e) {
-      var fragment, i, index, len, match, ref, route;
+      var callback, fragment, match, ref, regex;
       console.log('gotPop');
       fragment = getFragment();
       console.log('Got fragment:', fragment);
       ref = settings.routes;
-      for (index = i = 0, len = ref.length; i < len; index = ++i) {
-        route = ref[index];
-        match = fragment.match(route.regex);
+      for (regex in ref) {
+        callback = ref[regex];
+        match = fragment.match(regex);
         if (match) {
           console.log(match);
           match.shift();
-          route.callback.apply({}, match);
+          callback.apply({}, match);
         }
       }
       return this;

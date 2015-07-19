@@ -1,6 +1,6 @@
 R = (options)->
 	settings =
-		routes: []
+		routes: {}
 		modern: false
 		root: '/'
 
@@ -33,13 +33,14 @@ R = (options)->
 			regex: regex
 			callback: callback
 		console.log 'Adding route:',route
-		settings.routes.push route
+		settings.routes[regex] = callback
 		@
 
 	remove = (param)->
-		for route, index in settings.routes
-			if route.callback is param or route.regex.toString() is param.toString()
-				settings.routes.splice index, 1
+		for regex, callback of settings.routes
+			if callback is param or regex.toString() is param.toString()
+				settings.routes[regex] = null
+				delete settings.routes[regex]
 		@
 
 	flush = ->
@@ -63,12 +64,12 @@ R = (options)->
 		console.log 'gotPop'
 		fragment = getFragment()
 		console.log 'Got fragment:',fragment
-		for route, index in settings.routes
-			match = fragment.match route.regex
+		for regex, callback of settings.routes
+			match = fragment.match regex
 			if match
 				console.log match
 				match.shift()
-				route.callback.apply({},match)
+				callback.apply({},match)
 		@
 
 	start = ->
