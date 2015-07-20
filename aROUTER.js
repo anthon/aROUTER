@@ -45,7 +45,6 @@
         regex = '';
       }
       pattern = clearSlashes(regex);
-      console.log('Adding route:', pattern);
       settings.routes[pattern] = callback;
       return this;
     };

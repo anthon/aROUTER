@@ -30,7 +30,7 @@ R = (options)->
 			callback = regex
 			regex = ''
 		pattern = clearSlashes(regex)
-		console.log 'Adding route:',pattern
+		# console.log 'Adding route:',pattern
 		settings.routes[pattern] = callback
 		@
 
