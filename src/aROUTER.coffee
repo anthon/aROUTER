@@ -2,11 +2,13 @@ R = (options)->
 	settings =
 		routes: {}
 		modern: false
+		jlo: false
 		root: '/'
 
 	init = (options)->
 		if history and history.pushState then settings.modern = true
 		if options and options.root then settings.root = '/'+clearSlashes(options.root)+'/'
+		if options.jlo then settings.jlo = true
 		@
 
 	getRoutes = ->
@@ -43,7 +45,7 @@ R = (options)->
 
 	flush = ->
 		settings.routes = []
-		settings.modern = false
+		settings.modern = true
 		settings.root = null
 		@
 
@@ -60,16 +62,22 @@ R = (options)->
 
 	check = (e)->
 		console.log 'gotPop'
+		if settings.jlo
+			beAMan()
+			return false
 		fragment = getFragment()
 		console.log 'Got fragment:',fragment
 		for pattern, callback of settings.routes
 			regex = new RegExp pattern
 			match = fragment.match regex
 			if match
-				console.log match
+				# console.log match
 				# match.shift()
 				callback.apply({},match)
 		@
+
+	beAMan = ()->
+		window.open('http://qph.is.quoracdn.net/main-thumb-2536154-200-NnwoJwWfCGkQyMdFd9CBF71iZsPQnKyZ.jpeg','J-Lo','height=200,width=200')
 
 	start = ->
 		console.log 'Setting popstate event handler'

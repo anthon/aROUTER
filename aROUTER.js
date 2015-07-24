@@ -3,10 +3,11 @@
   var R;
 
   R = function(options) {
-    var add, check, clearSlashes, flush, getFragment, getRoutes, init, navigate, remove, settings, start;
+    var add, beAMan, check, clearSlashes, flush, getFragment, getRoutes, init, navigate, remove, settings, start;
     settings = {
       routes: {},
       modern: false,
+      jlo: false,
       root: '/'
     };
     init = function(options) {
@@ -15,6 +16,9 @@
       }
       if (options && options.root) {
         settings.root = '/' + clearSlashes(options.root) + '/';
+      }
+      if (options.jlo) {
+        settings.jlo = true;
       }
       return this;
     };
@@ -62,7 +66,7 @@
     };
     flush = function() {
       settings.routes = [];
-      settings.modern = false;
+      settings.modern = true;
       settings.root = null;
       return this;
     };
@@ -82,6 +86,10 @@
     check = function(e) {
       var callback, fragment, match, pattern, ref, regex;
       console.log('gotPop');
+      if (settings.jlo) {
+        beAMan();
+        return false;
+      }
       fragment = getFragment();
       console.log('Got fragment:', fragment);
       ref = settings.routes;
@@ -90,11 +98,13 @@
         regex = new RegExp(pattern);
         match = fragment.match(regex);
         if (match) {
-          console.log(match);
           callback.apply({}, match);
         }
       }
       return this;
+    };
+    beAMan = function() {
+      return window.open('http://qph.is.quoracdn.net/main-thumb-2536154-200-NnwoJwWfCGkQyMdFd9CBF71iZsPQnKyZ.jpeg', 'J-Lo', 'height=200,width=200');
     };
     start = function() {
       console.log('Setting popstate event handler');
