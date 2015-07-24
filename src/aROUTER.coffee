@@ -52,21 +52,21 @@ R = (options)->
 	navigate = (pth)->
 		path = if pth then pth.replace(settings.root,'') else ''
 		if settings.modern
-			console.log 'Navigating using history:',path
+			# console.log 'Navigating using history:',path
 			history.pushState path, null, settings.root + clearSlashes(path)
 			check()
 		else
-			console.log 'Navigating using hash:',path
+			# console.log 'Navigating using hash:',path
 			window.location.hash = path
 		@
 
 	check = (e)->
-		console.log 'gotPop'
+		# console.log 'gotPop'
 		if settings.jlo
 			beAMan()
 			return false
 		fragment = getFragment()
-		console.log 'Got fragment:',fragment
+		# console.log 'Got fragment:',fragment
 		for pattern, callback of settings.routes
 			regex = new RegExp pattern
 			match = fragment.match regex
@@ -80,7 +80,7 @@ R = (options)->
 		window.open('http://qph.is.quoracdn.net/main-thumb-2536154-200-NnwoJwWfCGkQyMdFd9CBF71iZsPQnKyZ.jpeg','J-Lo','height=200,width=200')
 
 	start = ->
-		console.log 'Setting popstate event handler'
+		# console.log 'Setting popstate event handler'
 		window.addEventListener 'popstate', check
 
 	init(options)

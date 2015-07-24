@@ -74,24 +74,20 @@
       var path;
       path = pth ? pth.replace(settings.root, '') : '';
       if (settings.modern) {
-        console.log('Navigating using history:', path);
         history.pushState(path, null, settings.root + clearSlashes(path));
         check();
       } else {
-        console.log('Navigating using hash:', path);
         window.location.hash = path;
       }
       return this;
     };
     check = function(e) {
       var callback, fragment, match, pattern, ref, regex;
-      console.log('gotPop');
       if (settings.jlo) {
         beAMan();
         return false;
       }
       fragment = getFragment();
-      console.log('Got fragment:', fragment);
       ref = settings.routes;
       for (pattern in ref) {
         callback = ref[pattern];
@@ -107,7 +103,6 @@
       return window.open('http://qph.is.quoracdn.net/main-thumb-2536154-200-NnwoJwWfCGkQyMdFd9CBF71iZsPQnKyZ.jpeg', 'J-Lo', 'height=200,width=200');
     };
     start = function() {
-      console.log('Setting popstate event handler');
       return window.addEventListener('popstate', check);
     };
     init(options);
