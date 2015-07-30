@@ -17,7 +17,7 @@
       if (options && options.root) {
         settings.root = '/' + clearSlashes(options.root) + '/';
       }
-      if (options.jlo) {
+      if (options && options.jlo) {
         settings.jlo = true;
       }
       return this;
