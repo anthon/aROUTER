@@ -83,7 +83,6 @@
     };
     check = function(e) {
       var callback, fragment, match, pattern, ref, regex;
-      console.log('gotPop');
       if (settings.jlo) {
         beAMan();
         return false;

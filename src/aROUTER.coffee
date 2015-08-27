@@ -61,7 +61,7 @@ R = (options)->
 		@
 
 	check = (e)->
-		console.log 'gotPop'
+		# console.log 'gotPop'
 		if settings.jlo
 			beAMan()
 			return false
