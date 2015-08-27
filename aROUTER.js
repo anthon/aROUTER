@@ -10,7 +10,7 @@
       jlo: false,
       root: '/'
     };
-    current_path = '';
+    current_path = '#';
     init = function(options) {
       if (history && history.pushState) {
         settings.modern = true;

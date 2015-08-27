@@ -4,7 +4,7 @@ R = (options)->
 		modern: false
 		jlo: false
 		root: '/'
-	current_path = ''
+	current_path = '#'
 
 	init = (options)->
 		if history and history.pushState then settings.modern = true
