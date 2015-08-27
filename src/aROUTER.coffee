@@ -4,6 +4,7 @@ R = (options)->
 		modern: false
 		jlo: false
 		root: '/'
+	current_path = ''
 
 	init = (options)->
 		if history and history.pushState then settings.modern = true
@@ -66,11 +67,13 @@ R = (options)->
 			beAMan()
 			return false
 		fragment = getFragment()
+		if current_path is fragment then return false
 		# console.log 'Got fragment:',fragment
 		for pattern, callback of settings.routes
 			regex = new RegExp pattern
 			match = fragment.match regex
 			if match
+				current_path = fragment
 				# console.log match
 				# match.shift()
 				callback.apply({},match)

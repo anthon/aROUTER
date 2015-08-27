@@ -3,13 +3,14 @@
   var R;
 
   R = function(options) {
-    var add, beAMan, check, clearSlashes, flush, getFragment, getRoutes, init, navigate, remove, settings, start;
+    var add, beAMan, check, clearSlashes, current_path, flush, getFragment, getRoutes, init, navigate, remove, settings, start;
     settings = {
       routes: {},
       modern: false,
       jlo: false,
       root: '/'
     };
+    current_path = '';
     init = function(options) {
       if (history && history.pushState) {
         settings.modern = true;
@@ -88,12 +89,16 @@
         return false;
       }
       fragment = getFragment();
+      if (current_path === fragment) {
+        return false;
+      }
       ref = settings.routes;
       for (pattern in ref) {
         callback = ref[pattern];
         regex = new RegExp(pattern);
         match = fragment.match(regex);
         if (match) {
+          current_path = fragment;
           callback.apply({}, match);
         }
       }
