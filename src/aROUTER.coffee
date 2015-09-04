@@ -4,12 +4,15 @@ R = (options)->
 		modern: false
 		jlo: false
 		root: '/'
+		autostart: true
 	current_path = '#'
 
 	init = (options)->
 		if history and history.pushState then settings.modern = true
-		if options and options.root then settings.root = '/'+clearSlashes(options.root)+'/'
-		if options and options.jlo then settings.jlo = true
+		if options
+			if options.root then settings.root = '/'+clearSlashes(options.root)+'/'
+			if options.autostart then settings.autostart = options.autostart
+			if options.jlo then settings.jlo = options.jlo
 		@
 
 	getRoutes = ->
@@ -85,6 +88,7 @@ R = (options)->
 	start = ->
 		# console.log 'Setting popstate event handler'
 		window.addEventListener 'popstate', check
+		if settings.autostart then navigate window.location.pathname
 
 	init(options)
 

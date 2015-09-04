@@ -8,18 +8,24 @@
       routes: {},
       modern: false,
       jlo: false,
-      root: '/'
+      root: '/',
+      autostart: true
     };
     current_path = '#';
     init = function(options) {
       if (history && history.pushState) {
         settings.modern = true;
       }
-      if (options && options.root) {
-        settings.root = '/' + clearSlashes(options.root) + '/';
-      }
-      if (options && options.jlo) {
-        settings.jlo = true;
+      if (options) {
+        if (options.root) {
+          settings.root = '/' + clearSlashes(options.root) + '/';
+        }
+        if (options.autostart) {
+          settings.autostart = options.autostart;
+        }
+        if (options.jlo) {
+          settings.jlo = options.jlo;
+        }
       }
       return this;
     };
@@ -108,7 +114,10 @@
       return window.open('http://qph.is.quoracdn.net/main-thumb-2536154-200-NnwoJwWfCGkQyMdFd9CBF71iZsPQnKyZ.jpeg', 'J-Lo', 'height=200,width=200');
     };
     start = function() {
-      return window.addEventListener('popstate', check);
+      window.addEventListener('popstate', check);
+      if (settings.autostart) {
+        return navigate(window.location.pathname);
+      }
     };
     init(options);
     return {
