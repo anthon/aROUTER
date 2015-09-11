@@ -58,7 +58,7 @@ R = (options)->
 		hash = window.location.hash
 		if settings.modern
 			# console.log 'Navigating using history:',path
-			history.pushState path+hash, null, settings.root + clearSlashes(path)
+			history.pushState path+hash, null, settings.root + clearSlashes(path+hash)
 			check()
 		else
 			# console.log 'Navigating using hash:',path

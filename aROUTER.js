@@ -82,7 +82,7 @@
       path = pth ? pth.replace(settings.root, '') : '';
       hash = window.location.hash;
       if (settings.modern) {
-        history.pushState(path + hash, null, settings.root + clearSlashes(path));
+        history.pushState(path + hash, null, settings.root + clearSlashes(path + hash));
         check();
       } else {
         window.location.hash = path + ':' + hash.replace('#', ':');
