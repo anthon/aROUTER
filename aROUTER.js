@@ -78,13 +78,14 @@
       return this;
     };
     navigate = function(pth) {
-      var path;
+      var hash, path;
       path = pth ? pth.replace(settings.root, '') : '';
+      hash = window.location.hash;
       if (settings.modern) {
-        history.pushState(path, null, settings.root + clearSlashes(path));
+        history.pushState(path + hash, null, settings.root + clearSlashes(path));
         check();
       } else {
-        window.location.hash = path;
+        window.location.hash = path + ':' + hash.replace('#', ':');
       }
       return this;
     };

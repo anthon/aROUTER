@@ -55,13 +55,14 @@ R = (options)->
 
 	navigate = (pth)->
 		path = if pth then pth.replace(settings.root,'') else ''
+		hash = window.location.hash
 		if settings.modern
 			# console.log 'Navigating using history:',path
-			history.pushState path, null, settings.root + clearSlashes(path)
+			history.pushState path+hash, null, settings.root + clearSlashes(path)
 			check()
 		else
 			# console.log 'Navigating using hash:',path
-			window.location.hash = path
+			window.location.hash = path+':'+hash.replace('#',':')
 		@
 
 	check = (e)->
