@@ -6,7 +6,7 @@ R = (options)->
 		root: '/'
 		autostart: true
 	_current_path = '#'
-	_previous_path = null
+	_previous_path = window.location.pathname
 
 	init = (options)->
 		if history and history.pushState then settings.modern = true
@@ -85,7 +85,6 @@ R = (options)->
 				# console.log match
 				# match.shift()
 				callback.apply({},match)
-				_previous_path = _current_path
 		@
 
 	beAMan = ()->

@@ -12,7 +12,7 @@
       autostart: true
     };
     _current_path = '#';
-    _previous_path = null;
+    _previous_path = window.location.pathname;
     init = function(options) {
       if (history && history.pushState) {
         settings.modern = true;
@@ -111,7 +111,6 @@
         if (match) {
           _current_path = fragment;
           callback.apply({}, match);
-          _previous_path = _current_path;
         }
       }
       return this;
