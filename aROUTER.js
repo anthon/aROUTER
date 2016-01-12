@@ -12,7 +12,7 @@
       autostart: true
     };
     _current_path = '#';
-    _previous_path = window.location.pathname;
+    _previous_path = null;
     init = function(options) {
       if (history && history.pushState) {
         settings.modern = true;
@@ -28,6 +28,7 @@
           settings.jlo = options.jlo;
         }
       }
+      _previous_path = clearSlashes(window.location.pathname);
       return this;
     };
     getRoutes = function() {

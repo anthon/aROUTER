@@ -6,7 +6,7 @@ R = (options)->
 		root: '/'
 		autostart: true
 	_current_path = '#'
-	_previous_path = window.location.pathname
+	_previous_path = null
 
 	init = (options)->
 		if history and history.pushState then settings.modern = true
@@ -14,6 +14,7 @@ R = (options)->
 			if options.root then settings.root = '/'+clearSlashes(options.root)+'/'
 			if typeof options.autostart isnt 'undefined' then settings.autostart = options.autostart
 			if options.jlo then settings.jlo = options.jlo
+		_previous_path = clearSlashes(window.location.pathname)
 		@
 
 	getRoutes = ->
