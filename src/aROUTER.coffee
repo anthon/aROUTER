@@ -11,7 +11,7 @@ R = (options)->
 		if history and history.pushState then settings.modern = true
 		if options
 			if options.root then settings.root = '/'+clearSlashes(options.root)+'/'
-			if options.autostart then settings.autostart = options.autostart
+			if typeof options.autostart isnt 'undefined' then settings.autostart = options.autostart
 			if options.jlo then settings.jlo = options.jlo
 		@
 
