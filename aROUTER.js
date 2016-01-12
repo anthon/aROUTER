@@ -111,6 +111,7 @@
         if (match) {
           _current_path = fragment;
           callback.apply({}, match);
+          _previous_path = _current_path;
         }
       }
       return this;

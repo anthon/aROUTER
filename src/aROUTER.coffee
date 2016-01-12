@@ -85,6 +85,7 @@ R = (options)->
 				# console.log match
 				# match.shift()
 				callback.apply({},match)
+				_previous_path = _current_path
 		@
 
 	beAMan = ()->
