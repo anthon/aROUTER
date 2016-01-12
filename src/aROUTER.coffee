@@ -5,7 +5,8 @@ R = (options)->
 		jlo: false
 		root: '/'
 		autostart: true
-	current_path = '#'
+	_current_path = '#'
+	_previous_path = null
 
 	init = (options)->
 		if history and history.pushState then settings.modern = true
@@ -27,6 +28,9 @@ R = (options)->
 			match = location.href.match /#(.*)$/
 			fragment = if match then match[1] else ''
 		clearSlashes fragment
+
+	getPreviousPath = ->
+		return _previous_path
 
 	clearSlashes = (path)->
 		path.toString().replace(/\/$/,'').replace(/^\//,'')
@@ -71,16 +75,17 @@ R = (options)->
 			beAMan()
 			return false
 		fragment = getFragment()
-		if current_path is fragment then return false
+		if _current_path is fragment then return false
 		# console.log 'Got fragment:',fragment
 		for pattern, callback of settings.routes
 			regex = new RegExp pattern
 			match = fragment.match regex
 			if match
-				current_path = fragment
+				_current_path = fragment
 				# console.log match
 				# match.shift()
 				callback.apply({},match)
+				_previous_path = _current_path
 		@
 
 	beAMan = ()->
@@ -100,6 +105,7 @@ R = (options)->
 		navigate: navigate
 		start: start
 		routes: getRoutes
+		previousPath: getPreviousPath
 	}
 
 window.Router = (options)->

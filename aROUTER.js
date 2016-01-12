@@ -3,7 +3,7 @@
   var R;
 
   R = function(options) {
-    var add, beAMan, check, clearSlashes, current_path, flush, getFragment, getRoutes, init, navigate, remove, settings, start;
+    var _current_path, _previous_path, add, beAMan, check, clearSlashes, flush, getFragment, getPreviousPath, getRoutes, init, navigate, remove, settings, start;
     settings = {
       routes: {},
       modern: false,
@@ -11,7 +11,8 @@
       root: '/',
       autostart: true
     };
-    current_path = '#';
+    _current_path = '#';
+    _previous_path = null;
     init = function(options) {
       if (history && history.pushState) {
         settings.modern = true;
@@ -45,6 +46,9 @@
         fragment = match ? match[1] : '';
       }
       return clearSlashes(fragment);
+    };
+    getPreviousPath = function() {
+      return _previous_path;
     };
     clearSlashes = function(path) {
       return path.toString().replace(/\/$/, '').replace(/^\//, '');
@@ -96,7 +100,7 @@
         return false;
       }
       fragment = getFragment();
-      if (current_path === fragment) {
+      if (_current_path === fragment) {
         return false;
       }
       ref = settings.routes;
@@ -105,8 +109,9 @@
         regex = new RegExp(pattern);
         match = fragment.match(regex);
         if (match) {
-          current_path = fragment;
+          _current_path = fragment;
           callback.apply({}, match);
+          _previous_path = _current_path;
         }
       }
       return this;
@@ -127,7 +132,8 @@
       flush: flush,
       navigate: navigate,
       start: start,
-      routes: getRoutes
+      routes: getRoutes,
+      previousPath: getPreviousPath
     };
   };
 
