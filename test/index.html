@@ -118,13 +118,14 @@
 		<a href="file:///Users/anthon/aDEV/JS/aROUTER/test/index.html/about/me" data-href="/about/me">About</a>
 		<a href="file:///Users/anthon/aDEV/JS/aROUTER/test/index.html/my/works" data-href="/my/works">Works</a>
 		<a href="file:///Users/anthon/aDEV/JS/aROUTER/test/index.html/contact/me" data-href="/contact/me">Contact</a>
+		<a href="#" data-href=":you">Blub</a>
+		<a href="#" data-href=":them">Bluba</a>
 	</div>
 
 	<script type="text/javascript">
 
 		var R = Router({
-			root: window.location.pathname,
-			jlo: true
+			root: window.location.pathname
 		});
 
 		R.add(/about\/me/,function(){

@@ -19,7 +19,7 @@
       }
       if (options) {
         if (options.root) {
-          settings.root = '/' + clearSlashes(options.root) + '/';
+          settings.root = '/' + clearSlashes(options.root);
         }
         if (typeof options.autostart !== 'undefined') {
           settings.autostart = options.autostart;
@@ -83,13 +83,35 @@
       return this;
     };
     navigate = function(pth) {
-      var hash, path;
-      path = pth ? pth.replace(settings.root, '') : '';
-      hash = window.location.hash;
+      var cash, hash, new_cash, new_path, new_pth_array, path, pth_array;
+      if (!pth) {
+        pth = '';
+      }
+      pth_array = window.location.pathname.split(':');
+      path = pth_array[0];
+      cash = pth_array[1];
+      new_pth_array = pth.split(':');
+      new_path = new_pth_array[0];
+      new_cash = new_pth_array[1];
+      if (new_path) {
+        path = new_path;
+      }
+      if (new_cash) {
+        cash = new_cash;
+      }
+      if (cash) {
+        path = path + ':' + cash;
+      }
+      console.log('path:', path);
+      console.log('cash:', cash);
       if (settings.modern) {
-        history.pushState(path + hash, null, settings.root + clearSlashes(path + hash));
+        path = path.replace(settings.root, '');
+        console.log('root:', settings.root);
+        console.log('path:', path);
+        history.pushState(path, null, settings.root + clearSlashes(path));
         check();
       } else {
+        hash = window.location.hash;
         window.location.hash = path + ':' + hash.replace('#', ':');
       }
       return this;

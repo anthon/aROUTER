@@ -11,7 +11,7 @@ R = (options)->
 	init = (options)->
 		if history and history.pushState then settings.modern = true
 		if options
-			if options.root then settings.root = '/'+clearSlashes(options.root)+'/'
+			if options.root then settings.root = '/'+clearSlashes(options.root)
 			if typeof options.autostart isnt 'undefined' then settings.autostart = options.autostart
 			if options.jlo then settings.jlo = options.jlo
 		_previous_path = clearSlashes(window.location.pathname)
@@ -59,14 +59,26 @@ R = (options)->
 		@
 
 	navigate = (pth)->
-		path = if pth then pth.replace(settings.root,'') else ''
-		hash = window.location.hash
+		if not pth then pth = ''
+		pth_array = window.location.pathname.split ':'
+		path = pth_array[0]
+		cash = pth_array[1]
+		new_pth_array = pth.split ':'
+		new_path = new_pth_array[0]
+		new_cash = new_pth_array[1]
+		if new_path then path = new_path
+		if new_cash then cash = new_cash
+		if cash then path = path+':'+cash
+		console.log 'path:',path
+		console.log 'cash:',cash
 		if settings.modern
-			# console.log 'Navigating using history:',path
-			history.pushState path+hash, null, settings.root + clearSlashes(path+hash)
+			path = path.replace settings.root,''
+			console.log 'root:',settings.root
+			console.log 'path:',path
+			history.pushState path, null, settings.root + clearSlashes(path)
 			check()
 		else
-			# console.log 'Navigating using hash:',path
+			hash = window.location.hash
 			window.location.hash = path+':'+hash.replace('#',':')
 		@
 
