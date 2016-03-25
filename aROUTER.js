@@ -108,7 +108,7 @@
         path = path.replace(settings.root, '');
         console.log('root:', settings.root);
         console.log('path:', path);
-        history.pushState(path, null, settings.root + clearSlashes(path));
+        history.pushState(path, null, settings.root + '/' + clearSlashes(path));
         check();
       } else {
         hash = window.location.hash;
