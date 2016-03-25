@@ -59,6 +59,7 @@ R = (options)->
 		@
 
 	navigate = (pth)->
+		console.log 'PTH:',pth
 		if not pth then pth = ''
 		pth_array = window.location.pathname.split ':'
 		path = pth_array[0]
@@ -66,8 +67,8 @@ R = (options)->
 		new_pth_array = pth.split ':'
 		new_path = new_pth_array[0]
 		new_cash = new_pth_array[1]
-		if new_path then path = new_path
-		if new_cash then cash = new_cash
+		if new_path isnt undefined then path = new_path
+		if new_cash isnt undefined then cash = new_cash
 		if cash then path = path+':'+cash
 		console.log 'path:',path
 		console.log 'cash:',cash
@@ -75,7 +76,7 @@ R = (options)->
 			path = path.replace settings.root,''
 			console.log 'root:',settings.root
 			console.log 'path:',path
-			history.pushState path, null, settings.root + '/' + clearSlashes(path)
+			history.pushState path, null, settings.root + clearSlashes(path)
 			check()
 		else
 			hash = window.location.hash

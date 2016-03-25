@@ -84,6 +84,7 @@
     };
     navigate = function(pth) {
       var cash, hash, new_cash, new_path, new_pth_array, path, pth_array;
+      console.log('PTH:', pth);
       if (!pth) {
         pth = '';
       }
@@ -93,10 +94,10 @@
       new_pth_array = pth.split(':');
       new_path = new_pth_array[0];
       new_cash = new_pth_array[1];
-      if (new_path) {
+      if (new_path !== void 0) {
         path = new_path;
       }
-      if (new_cash) {
+      if (new_cash !== void 0) {
         cash = new_cash;
       }
       if (cash) {
@@ -108,7 +109,7 @@
         path = path.replace(settings.root, '');
         console.log('root:', settings.root);
         console.log('path:', path);
-        history.pushState(path, null, settings.root + '/' + clearSlashes(path));
+        history.pushState(path, null, settings.root + clearSlashes(path));
         check();
       } else {
         hash = window.location.hash;
