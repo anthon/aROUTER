@@ -58,15 +58,21 @@ R = (options)->
 		settings.root = null
 		@
 
-	navigate = (pth)->
+	navigate = (pth,keep_cash=false)->
 		console.log 'PTH:',pth
 		if not pth then pth = ''
-		pth_array = window.location.pathname.split ':'
-		path = pth_array[0]
-		cash = pth_array[1]
-		new_pth_array = pth.split ':'
-		new_path = new_pth_array[0]
-		new_cash = new_pth_array[1]
+		if keep_cash
+			pth_array = window.location.pathname.split ':'
+			path = pth_array[0]
+			cash = pth_array[1]
+			new_pth_array = pth.split ':'
+			new_path = new_pth_array[0]
+			new_cash = new_pth_array[1]
+		else
+			path = window.location.pathname
+			cash = null
+			new_path = pth
+			new_cash = false
 		if new_path isnt undefined then path = new_path
 		if new_cash isnt undefined then cash = new_cash
 		if cash then path = path+':'+cash
