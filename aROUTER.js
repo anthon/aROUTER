@@ -87,7 +87,6 @@
       if (keep_cash == null) {
         keep_cash = false;
       }
-      console.log('PTH:', pth);
       if (!pth) {
         pth = '';
       }
@@ -113,12 +112,8 @@
       if (cash) {
         path = path + ':' + cash;
       }
-      console.log('path:', path);
-      console.log('cash:', cash);
       if (settings.modern) {
         path = path.replace(settings.root, '');
-        console.log('root:', settings.root);
-        console.log('path:', path);
         history.pushState(path, null, settings.root + clearSlashes(path));
         check();
       } else {
